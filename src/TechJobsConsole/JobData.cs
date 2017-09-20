@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Text;
 
 namespace TechJobsConsole
@@ -138,5 +138,37 @@ namespace TechJobsConsole
 
             return rowValues.ToArray();
         }
+
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+
+            LoadData();
+            List<Dictionary<string, string>> allColumns = new List<Dictionary<string, string>>();
+            foreach (Dictionary<string, string> listItem in AllJobs)
+            {
+
+                foreach (KeyValuePair<string, string> item in listItem)
+
+                {
+                    foreach (string i in item.Value.Split())
+                    {
+                        if (i.ToLower() == value.ToLower())
+                        {
+                            if (allColumns.Contains(listItem))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                allColumns.Add(listItem);
+                            }
+
+                        }
+                    }
+                }
+            }
+            return allColumns.OrderBy(q => q.ContainsKey("name") ? q["name"] : string.Empty).ToList();
+        }
+
     }
 }
