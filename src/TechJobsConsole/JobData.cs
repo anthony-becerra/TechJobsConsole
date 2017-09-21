@@ -152,7 +152,7 @@ namespace TechJobsConsole
                 {
                     foreach (string i in item.Value.Split())
                     {
-                        if (i.ToLower() == value.ToLower())
+                        if (i.ToLower().Contains(value.ToLower()))
                         {
                             if (allColumns.Contains(listItem))
                             {
